@@ -63,7 +63,7 @@ namespace Linq1
         private void button3_Click(object sender, EventArgs e)
         {
             richTextBox1.Text = "大於3000薪資: \n";
-            var result = from s in Salary    //將Salary陣列中薪資大於3萬元以遞減排序
+            var result = from s in Salary    //將Salary陣列中薪資 大於3萬元以遞減排序
                          orderby s descending
                          where s > 30000
                          select s;
@@ -77,6 +77,28 @@ namespace Linq1
 
         }
 
+        // 小於30000
+        private void button4_Click(object sender, EventArgs e)
+        {
+            richTextBox1.Text = "小於等於30000薪資: \n";
+            var result = from s in Salary    //將Salary陣列中薪資 小於3萬元以遞減排序
+                         orderby s descending
+                         where s <= 30000
+                         select s;
+            int i = 0;
+            foreach (var s in result)
+            {
+                i++;
+                richTextBox1.Text += i.ToString() + ". " + s.ToString() + "\n";
+            }
+            richTextBox1.Text += "共" + result.Count().ToString() + " 人";  // 取 <= 30000筆數
+        }
+
+        // 平均
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Form1_Load(sender, e);  //呼叫Form1_Load 事件，兩者程式碼相同
+        }
         
     }
 }
