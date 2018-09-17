@@ -2,6 +2,20 @@ Linq體驗(A Taste of LINQ)
 
 using System.Linq;
 
+private void button49_Click(object sender, EventArgs e)
+{
+    //參考!
+//            #region 組件 System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+//            // C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5.2\System.Core.dll
+//            #endregion
+
+//            using System.Collections;
+//            using System.Collections.Generic;
+
+//      namespace System.Linq
+}
+
+//==================================================================================
 private void button2_Click(object sender, EventArgs e)
 {
     //Step 1: 
