@@ -101,5 +101,80 @@ namespace Linq_to_XML1
     }
 }
 
+//---- LINQ Method -------------------------
+// 20-17
+
+//----- Book.cs ---------
+namespace Linq_Method1
+{
+    class Book
+    {
+        public string Id { get; set; }  //書號
+        public string Name { get; set; }  //書名
+        public int Price { get; set; }  //單價
+    }
+}
+
+
+//-------- Linq_Method1.sln ---------
+using System.Linq;
+
+namespace Linq_Method1
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        //建立 Book書籍陣列物件
+        Book[] books = new Book[]
+        {
+            new Book {Id="AEL015400", Name="Java 8 基礎必修課", Price=530},
+            new Book {Id="AEL017400", Name="Visual C# 2017 基礎必修課", Price=500},
+            new Book {Id="AEL014700", Name="Visual Basic 2017 程式設計經典", Price=650},
+            new Book {Id="AEL014300", Name="Visual C# 2017 程式設計經典", Price=750}
+        };
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = books.ToList();
+        }
+
+        //查詢
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string keyword = textBox1.Text;
+            var result = books
+                .Where(m => m.Name.Contains(keyword)).ToList();
+            dataGridView1.DataSource = result;
+        }
+
+        //書籍列表
+        private void button2_Click(object sender, EventArgs e)
+        {
+            Form1_Load(sender, e);
+        }
+
+        //單價遞增排序
+        private void button3_Click(object sender, EventArgs e)
+        {
+            string keyword = textBox1.Text;
+            var result = books.OrderBy(m => m.Price).ToList();
+            dataGridView1.DataSource = result;
+        }
+
+        //單價遞減排序
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string keyword = textBox1.Text;
+            var result = books.OrderByDescending(m => m.Price).ToList();
+            dataGridView1.DataSource = result;
+        }
+    }
+}
+
+
 
 
