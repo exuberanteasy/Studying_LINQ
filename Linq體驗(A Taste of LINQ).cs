@@ -19,3 +19,20 @@ private void button2_Click(object sender, EventArgs e)
         this.listBox1.Items.Add(n);
     }
 }
+
+//===============================================
+private void button7_Click(object sender, EventArgs e)
+{
+    int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+    
+    // var q = 
+    IEnumerable<Point> q = from n in nums
+            where n > 5 && n <= 8
+            select new Point(n, n * n);  //可以輸出任意型別??
+
+    foreach (Point p in q)
+    {
+        this.listBox1.Items.Add(p);
+    }
+}
+
