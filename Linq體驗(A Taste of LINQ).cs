@@ -36,3 +36,25 @@ private void button7_Click(object sender, EventArgs e)
     }
 }
 
+private void button7_Click(object sender, EventArgs e)
+{
+    int[] nums = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+    // var q = 
+    IEnumerable<Point> q = from n in nums
+                           where n > 0 
+                           select new Point(n, n * n);  //可以輸出任意型別??
+
+    foreach (Point p in q)
+    {
+        this.listBox1.Items.Add(p);
+    }
+
+    //================================================
+    this.dataGridView1.DataSource = q.ToList(); //loop......
+
+    this.chart1.DataSource = q.ToList();
+    this.chart1.Series[0].XValueMember = "X";
+    this.chart1.Series[0].YValueMembers = "Y";
+    this.chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
+}
