@@ -246,6 +246,66 @@ namespace Linq_Method2
     }
 }
 
+//====== Linq_to_DataSet1.sln ============================================
+// 20-27
+// ch20DB.mdf and ch20DB_log.ldf 要記得移到 bin\Debug 資料夾下
+
+using System.Linq;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Linq_to_DataSet1
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        //建立 DataSet 物件 ds，ds 建立於所有事件處理函式之外以便所有事件一起共用
+        DataSet ds = new DataSet();
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            using (SqlConnection cn = new SqlConnection())
+            {
+                cn.ConnectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;" +
+                    "AttachDbFilename=|DataDirectory|ch20DB.mdf;" +
+                    "Integrated Security=True";
+                SqlDataAdapter daEmployee = new SqlDataAdapter("Select * From 員工 Order by 編號 Desc", cn);
+                daEmployee.Fill(ds, "員工");
+                dataGridView1.DataSource = ds.Tables["員工"];
+            }
+        }
+
+        //確定
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                DataTable dtEmp = ds.Tables["員工"];
+                var emp = from p in dtEmp.AsEnumerable()
+                          where p.Field<int>("薪資") >= int.Parse(textBox1.Text)
+                          orderby p.Field<int>("薪資") descending
+                          select new
+                          {
+                              員工編號 = p.Field<int>("編號"),
+                              員工姓名 = p.Field<string>("姓名"),
+                              員工電話 = p.Field<string>("電話"),
+                              員工職稱 = p.Field<string>("職稱"),
+                              員工薪資 = p.Field<int>("薪資")
+                          };
+                dataGridView1.DataSource = emp.ToList();
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+    }
+}
 
 
 
