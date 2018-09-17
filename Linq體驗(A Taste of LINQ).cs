@@ -58,3 +58,23 @@ private void button7_Click(object sender, EventArgs e)
     this.chart1.Series[0].YValueMembers = "Y";
     this.chart1.Series[0].ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Column;
 }
+//==============================================================
+ private void button10_Click(object sender, EventArgs e)
+{
+    this.productsTableAdapter1.Fill(this.northwindDataSet1.Products);
+    this.dataGridView1.DataSource = this.northwindDataSet1.Products;
+
+    var q = from p in this.northwindDataSet1.Products
+            where !p.IsUnitPriceNull() &&  p.UnitPrice > 30
+            select p;
+
+    foreach (global::LinqLabs.NorthwindDataSet.ProductsRow p in q)
+    {
+        this.listBox1.Items.Add(p.ProductName + p.UnitPrice);
+    }
+
+    this.dataGridView1.DataSource = q.ToList();
+}
+
+
+
