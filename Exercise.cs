@@ -175,6 +175,78 @@ namespace Linq_Method1
     }
 }
 
+//----- Linq_Method2.sln ---------------------------------------------------
+// 20-20
+//----- 建一個 Book.cs ---------
+
+using System.Linq;
+
+namespace Linq_Method2
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        //建立 Book 書籍陣列物件
+        Book[] books = new Book[]
+        {
+            new Book { Id="AEL015400", Name = "Jave 8 基礎必修課", Price = 530},
+            new Book { Id="AEL017400", Name = "Visual C# 2017 基礎必修課", Price = 600},
+            new Book { Id="AEL014700", Name = "Visual Basic 2017 程式設計經典", Price = 650},
+            new Book { Id="AEL014300", Name = "Visual C# 2017 程式設計經典", Price = 700}
+        };
+
+        //宣告 index 整數變數，用來表示陣列中的第幾筆書籍資料
+        int index = 0;
+        
+        //定義ShowRecord，可傳入指定的書籍物件，並將該物件資訊顯示在表單控制項上
+        void ShowRecord(Book t)
+        {
+            textBox1.Text = t.Id;
+            textBox2.Text = t.Name;
+            textBox3.Text = t.Price.ToString();
+
+            pictureBox1.Image = new Bitmap(t.Id + ".jpg");
+            label4.Text = (index + 1) + " /" + books.Count();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            var result = books.FirstOrDefault();
+            ShowRecord(result);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+        }
+
+        //上一筆
+        private void button1_Click(object sender, EventArgs e)
+        {
+            index--;
+            if (index < 0)
+            {
+                index = books.Count() - 1;
+            }
+            var result = books.Skip(index).FirstOrDefault();
+            ShowRecord(result);
+        }
+
+        //下一筆
+        private void button2_Click(object sender, EventArgs e)
+        {
+            index++;
+            if (books.Count() <= index)
+            {
+                index = 0;
+            }
+            var result = books.Skip(index).FirstOrDefault();
+            ShowRecord(result);
+        }
+    }
+}
+
+
 
 
 
